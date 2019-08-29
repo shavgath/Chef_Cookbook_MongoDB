@@ -47,6 +47,14 @@ template '/etc/systemd/system/mongod.service' do
   notifies :restart, 'service[mongod]'
 end
 
+template '/etc/hosts' do
+  source 'hosts.erb'
+  mode '0600'
+  owner 'root'
+  group 'root'
+  notifies :restart, 'service[mongod]'
+end
+
 package 'mongodb-org' do
   action :install
   options "--allow-unauthenticated"
